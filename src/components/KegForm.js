@@ -12,7 +12,7 @@ function KegForm(props) {
           <div className="form-group">
             <input className="form-control" type='text' name='brand' placeholder='Brand' required />
           </div>
-            <input className="form-control" type="number" name='price'placeholder='Price' min="0.01" step="0.01" required />
+            <input className="form-control" type="number" name='price' placeholder='Price' min="0.01" step="0.01" required />
           <div className="form-group">
             <input className="form-control" type="number" name='alcoholContent' placeholder='Alcohol Content' min="0.01" step="0.01" required/>
           </div>          
