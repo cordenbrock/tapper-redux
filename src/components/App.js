@@ -1,14 +1,17 @@
 import React from 'react';
-import Header from '.Header';
+import Header from './Header';
 import KegControl from './KegControl';
+import Container from 'react-bootstrap/Container';
 
 function App(){
+  
+
   return ( 
     <>
-      <div className="container">
+      <Container fluid>
         <Header />
         <KegControl />   
-      </div>
+      </Container>
     </>
   );
 }
