@@ -7,17 +7,19 @@ function KegList(props) {
   return (
     <>
       <div>
-      <h2>Tap List</h2>
-      <hr/>
+        <h2>Tap List</h2>
+        <hr/>
         {props.kegList.map(keg =>
-            <Keg 
-              name={keg.name}
-              brand={keg.brand}
-              price={keg.price}
-              alcoholContent={keg.alcoholContent}
-              pintQuantity={keg.pintQuantity}
-              id={keg.id}
-              key={keg.id} />)
+          <Keg
+            displayKegDetails = { props.onKegSelection } 
+            name={keg.name}
+            brand={keg.brand}
+            price={keg.price}
+            alcoholContent={keg.alcoholContent}
+            pintQuantity={keg.pintQuantity}
+            id={keg.id}
+            key={keg.id}
+          />)
         }
       </div>
     </>
@@ -25,7 +27,8 @@ function KegList(props) {
 }
 
 KegList.propTypes = {
-  kegList: PropTypes.array
+  kegList: PropTypes.array,
+  displayKegDetails: PropTypes.func
 }
 
 export default KegList;
