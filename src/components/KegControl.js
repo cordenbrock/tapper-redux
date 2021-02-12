@@ -4,8 +4,16 @@ class TapControl extends React.Component {
   constructor(props) {
   super(props)
   this.state = {
-      masterTapList = [],
-      formVisibleOnPage = false,
+      masterTapList: [
+        {
+          name: "keg name",
+          brand: "brand name",
+          price: 10,
+          alcoholContent: 5,
+          pintQuantity: 124
+        }
+      ],
+      formVisibleOnPage: false,
       selectedKeg: null,
       editing: false
     }
@@ -16,7 +24,7 @@ class TapControl extends React.Component {
   render() {
     return (
       <>
-        <h1>Tap control</h1>
+        <h2>Tap control</h2>
       </>
     );
   }
