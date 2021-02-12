@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 
 
 function KegDetails(props){
-  const { keg, onClickingDelete, onClickingEdit } = props;
+  const { keg, onDeleteKeg, onEditKeg } = props;
 
   return (
     <>
-      <div style={styleComponent}>
+      <div>
         <h1>Keg Details</h1>
         <hr/>
         <p>{keg.name}</p>
@@ -16,8 +16,8 @@ function KegDetails(props){
         <p>{keg.pintQuantity}</p>
         <p>{keg.alcoholContent}</p>
         <hr/>
-        <button onClick={()=> onClickingDelete(keg.id)}>Delete Keg</button>
-        <button onClick={()=> onClickingEdit(keg.id)}>Edit Keg</button>
+        <button onClick={()=> onDeleteKeg(keg.id)}>Delete Keg</button>
+        <button onClick={()=> onEditKeg(keg.id)}>Edit Keg</button>
       </div>
     </>
   );
