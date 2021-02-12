@@ -6,7 +6,7 @@ function Keg(props) {
   return (
     <>
       <div className="card">
-        <h4>{props.name}</h4>
+        <h4 onClick={() => props.displayKegDetails(props.id)}>{props.name}</h4>
         <hr/>
         <p>{props.brand}</p>
         <p>{props.price}</p>
@@ -22,7 +22,8 @@ Keg.propTypes = {
   brand: PropTypes.string,
   price: PropTypes.string,
   alcoholContent: PropTypes.string,
-  pintQuantity: PropTypes.string
+  pintQuantity: PropTypes.string,
+  displayKegDetails: PropTypes.func
 }
 
 export default Keg;
