@@ -2,7 +2,7 @@ import React from 'react';
 import AddKeg from './AddKeg';
 import KegDetails from './KegDetails';
 import KegList from './KegList';
-// import EditKeg from './EditKeg';
+import EditKeg from './EditKeg';
 
 class TapControl extends React.Component {
   constructor(props) {
@@ -28,7 +28,8 @@ class TapControl extends React.Component {
     if (this.state.selectedKeg != null) {
       this.setState({
         selectedKeg: null,
-        formVisibleOnPage: false
+        formVisibleOnPage: false,
+        editing: false
       });
     } else {
       this.setState(prevState => ({
@@ -59,8 +60,19 @@ class TapControl extends React.Component {
     });
   }
 
-  handleEditKeg = (selectedKeg) => {
+  handleEditKeg = () => {
+    this.setState({editing: true});
+  }
 
+  handleEditKegFormSubmission = (editedKeg) => {
+    const editedMasterTapList = this.state.masterTapList
+      .filter(keg => keg.id !== this.state.selectedKeg.id)
+      .concat(editedKeg);
+    this.setState({
+      masterTapList: editedMasterTapList,
+      editing: false,
+      selectedKeg: null
+    });
   }
 
   render() {
@@ -68,8 +80,9 @@ class TapControl extends React.Component {
     let buttonText = null;
 
     if (this.state.editing) {
-      console.log("editing")
-    } else if (this.state.selectedKeg) {
+      currentlyVisibleState = <EditKeg keg={this.state.selectedKeg} onEditKegFormSubmission={this.handleEditKegFormSubmission}/>
+      buttonText = "Return to Keg List"
+    } else if (this.state.selectedKeg != null) {
       currentlyVisibleState = <KegDetails keg={this.state.selectedKeg} onDeleteKeg={this.handleDeleteKeg} onEditKeg={this.handleEditKeg} />
       buttonText = "Return to Keg List"
     } else if (this.state.formVisibleOnPage) {
