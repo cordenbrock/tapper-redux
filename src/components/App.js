@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import KegControl from './KegControl';
+import TapControl from './TapControl';
 
 function App(){
   
@@ -8,7 +8,7 @@ function App(){
   return ( 
     <>
       <Header />
-      <KegControl />
+      <TapControl />
     </>
   );
 }

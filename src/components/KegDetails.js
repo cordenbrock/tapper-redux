@@ -13,8 +13,8 @@ function KegDetails(props){
         <p>{keg.name}</p>
         <p>{keg.brand}</p>
         <p>{keg.price}</p>
-        <p>{keg.pintQuantity}</p>
         <p>{keg.alcoholContent}</p>
+        <p>{keg.pintQuantity}</p>
         <hr/>
         <button onClick={()=> onDeleteKeg(keg.id)}>Delete Keg</button>
         <button onClick={()=> onEditKeg(keg.id)}>Edit Keg</button>

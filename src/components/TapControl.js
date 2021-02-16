@@ -3,21 +3,13 @@ import AddKeg from './AddKeg';
 import KegDetails from './KegDetails';
 import KegList from './KegList';
 import EditKeg from './EditKeg';
+import { kegStock } from './../defaults/defaultStock';
 
 class TapControl extends React.Component {
   constructor(props) {
   super(props)
   this.state = {
-      masterTapList: [
-        {
-          name: "keg name",
-          brand: "brand name",
-          price: "10",
-          alcoholContent: "5",
-          pintQuantity: "124",
-          id: "abc123"
-        }
-      ],
+      masterTapList: [...kegStock],
       formVisibleOnPage: false,
       selectedKeg: null,
       editing: false
@@ -64,16 +56,40 @@ class TapControl extends React.Component {
     this.setState({editing: true});
   }
 
-  handleEditKegFormSubmission = (editedKeg) => {
+  handleEditKegFormSubmission = (kegToEdit) => {
     const editedMasterTapList = this.state.masterTapList
       .filter(keg => keg.id !== this.state.selectedKeg.id)
-      .concat(editedKeg);
+      .concat(kegToEdit);
     this.setState({
       masterTapList: editedMasterTapList,
       editing: false,
       selectedKeg: null
     });
   }
+
+  // handlePintPour = (selectedKegId) => {
+  //   const newMasterTapList = this.state.masterTapList.map(keg => {
+  //     if (keg.id === selectedKegId) {
+  //       keg.pintQuantity--;
+  //     };
+  //   })
+  //   this.setState({
+  //     masterTapList: [...newMasterTapList]
+  //   })
+  // }
+
+  handlePintPour = (selectedKegId) => {
+    const newMasterTapList = this.state.masterTapList;
+    newMasterTapList.map(keg => {
+      if (keg.id === selectedKegId) {
+        keg.pintQuantity--;
+      };
+    })
+    this.setState({
+      masterTapList: [...newMasterTapList]
+    })
+  }
+
 
   render() {
     let currentlyVisibleState = null;
@@ -89,14 +105,16 @@ class TapControl extends React.Component {
       currentlyVisibleState = <AddKeg onNewKeg={this.handleAddKeg} />
       buttonText = "View Keg List";
     } else {
-      currentlyVisibleState = <KegList kegList={this.state.masterTapList} onKegSelection={this.handleSelectedKeg} />
+      currentlyVisibleState = <KegList kegList={this.state.masterTapList} onKegSelection={this.handleSelectedKeg} onPintPour={this.handlePintPour} />
       buttonText = "Add Keg";
     }
 
     return (
       <>
         {currentlyVisibleState}
-        <button className={"btn-primary"} onClick={this.handleVisiblePage}>{buttonText}</button>
+        <hr/>
+        <button className="btn-primary mb-4" onClick={this.handleVisiblePage}>{buttonText}</button>
+        
       </>
     );
   }
