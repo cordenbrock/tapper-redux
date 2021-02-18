@@ -17,15 +17,11 @@
 
 ## Setup Instructions
 
-* _Requirements_
-
-1. Node/npm
-
 * To run program:
 
 1. Clone this repository: ` git clone https://github.com/cordenbrock/tapper.git `
-2. Navigate to this specific directory from project folder root: ` cd tapper `
-3. Run the program in in your terminal with a ` npm start ` command 
+2. Navigate to the root directory: ` cd tapper `
+3. Run the program with ` npm start ` command in the terminal and open localhost:3000
 
 
 ## Built with/Tools used
