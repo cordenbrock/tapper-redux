@@ -3,6 +3,10 @@
 #### By Cory Nordenbrock
 ##### 2/16/20
 
+## _Deployment_
+
+* [Check it out!](https://cordenbrock.github.io/tapper/)
+
 ## _What_ does it do?
 
 * This web app allows a barkeep to track and manage inventory for a hypothetical taproom. 
