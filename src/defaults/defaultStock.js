@@ -7,6 +7,7 @@ export const kegStock = [
     price: "5.50",
     alcoholContent: "6.2",
     pintQuantity: "124",
+    id: v4()
   },
   {
     name: "Lorem Ipsum Lager",
@@ -14,6 +15,7 @@ export const kegStock = [
     price: "5.50",
     alcoholContent: "7.7",
     pintQuantity: "11",
+    id: v4()
   },
   {
     name: "Recursion-Cursed Kölsch",
@@ -21,5 +23,6 @@ export const kegStock = [
     price: "7.00",
     alcoholContent: "13.0",
     pintQuantity: "0",
+    id: v4()
   }
 ]

@@ -5,7 +5,7 @@ function KegForm(props) {
 
   return (
     <>
-    <div className={"container"}>
+    <div className={"container mt-5"}>
       <form onSubmit={props.handleSubmit}>
         <div className="form-group">
           <input className="form-control" type='text' name='name' placeholder='Name' required />
@@ -20,7 +20,7 @@ function KegForm(props) {
             <input className="form-control" type="number" name='pintQuantity' placeholder='Quantity (full keg = 124)' min="1" step="1" max="124" required/>
           </div>
           <div className="form-group">
-          <button className="btn-primary" type='submit'>{props.buttonText}</button>
+          <button className="btn btn-dark m-1" type='submit'>{props.buttonText}</button>
           </div>
         </div>
       </form>

@@ -1,18 +1,15 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
+import Tapper from "./../img/tapper.jpg";
+// import * from "../../src/index.css"
 
 function Header() {
-  const tempStyle = {
-    backgroundColor: "#e28743",
-    textAlign: "center"
-  }
+
   return (
     <>
-    <Container>
-      <h1 style={tempStyle}>Tapper</h1>
+    <Container fluid className="mb-3">
+      <img src={Tapper} alt="header banner from tapper arcade game" />
     </Container>
-    <hr/>
-    <hr/>
     </>
   );
 }

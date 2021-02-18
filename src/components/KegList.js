@@ -6,7 +6,7 @@ function KegList(props) {
   return (
     <>
       <div className="container">
-      <h2>Tap List</h2>
+      <h1>Tap List</h1>
         <hr/>
         <div className="row">
           <div className='col-md-12'>

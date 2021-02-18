@@ -1,13 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import { kegStock } from '../defaults/defaultStock';
 
 function Keg(props) {
-
-  // const lowCountWarnings = (count) => {
-  //   if (props.pintQuantity === 0) {
-  //     count 
-  //   }
-  // }
 
   return (
     <>
@@ -17,8 +12,8 @@ function Keg(props) {
           <p>Brewery || {props.brand}</p>
           <p>Price -- ABV || ${props.price} -- {props.alcoholContent}%</p>
           <p>Remaining Pint Count || {props.pintQuantity}</p>
-          <button className ="btn-primary" onClick={() => props.pourAPint(props.id)}>Pour a Pint!</button>
-          <button className ="btn-primary" onClick={() => props.displayKegDetails(props.id)}>Details</button>
+          <button className ="btn-dark" onClick={() => props.pourAPint(props.id)}>Pour a Pint!</button>
+          <button className ="btn-dark" onClick={() => props.displayKegDetails(props.id)}>Details</button>
         </div>
     </>
   )

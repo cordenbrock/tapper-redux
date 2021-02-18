@@ -9,3 +9,9 @@ body {
   text-align: center
 }
 
+.header-bg {
+  margin-bottom: 1rem;
+  padding: 8rem;
+  background: url(./img/tapper.jpg) no-repeat relative;
+  /* background-size: cover */
+}

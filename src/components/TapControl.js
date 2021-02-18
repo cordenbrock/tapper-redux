@@ -67,23 +67,25 @@ class TapControl extends React.Component {
     });
   }
 
-  // handlePintPour = (selectedKegId) => {
-  //   const newMasterTapList = this.state.masterTapList.map(keg => {
-  //     if (keg.id === selectedKegId) {
-  //       keg.pintQuantity--;
-  //     };
-  //   })
-  //   this.setState({
-  //     masterTapList: [...newMasterTapList]
-  //   })
-  // }
-
   handlePintPour = (selectedKegId) => {
-    const newMasterTapList = this.state.masterTapList;
-    newMasterTapList.map(keg => {
-      if (keg.id === selectedKegId) {
+    const newMasterTapList = this.state.masterTapList.map(keg => {
+      if (keg.id === selectedKegId && keg.pintQuantity > 0) {
         keg.pintQuantity--;
-      };
+      }
+      keg.pintQuantity = keg.pintQuantity.toString();
+      return keg;
+    })
+    this.setState({
+      masterTapList: [...newMasterTapList]
+    })
+  }
+
+  handleRestock = (selectedKegId) => {
+    const newMasterTapList = this.state.masterTapList.map(keg => {
+      if (keg.id === selectedKegId) {
+        keg.pintQuantity = "124";
+      }
+      return keg;
     })
     this.setState({
       masterTapList: [...newMasterTapList]
@@ -99,7 +101,7 @@ class TapControl extends React.Component {
       currentlyVisibleState = <EditKeg keg={this.state.selectedKeg} onEditKegFormSubmission={this.handleEditKegFormSubmission}/>
       buttonText = "Return to Keg List"
     } else if (this.state.selectedKeg != null) {
-      currentlyVisibleState = <KegDetails keg={this.state.selectedKeg} onDeleteKeg={this.handleDeleteKeg} onEditKeg={this.handleEditKeg} />
+      currentlyVisibleState = <KegDetails keg={this.state.selectedKeg} onDeleteKeg={this.handleDeleteKeg} onEditKeg={this.handleEditKeg} onRestockKeg={this.handleRestock}/>
       buttonText = "Return to Keg List"
     } else if (this.state.formVisibleOnPage) {
       currentlyVisibleState = <AddKeg onNewKeg={this.handleAddKeg} />
@@ -111,10 +113,11 @@ class TapControl extends React.Component {
 
     return (
       <>
-        {currentlyVisibleState}
-        <hr/>
-        <button className="btn-primary mb-4" onClick={this.handleVisiblePage}>{buttonText}</button>
-        
+        <div className="container fluid">
+          {currentlyVisibleState}
+          <hr/>
+          <button className="btn btn-light mb-4" onClick={this.handleVisiblePage}>{buttonText}</button>
+        </div>
       </>
     );
   }
