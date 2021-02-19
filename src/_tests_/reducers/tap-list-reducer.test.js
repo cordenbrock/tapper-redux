@@ -30,7 +30,7 @@ describe('tapListReducer', () => {
   test('Should add new tap object to master tap list', () => {
     const { name, brand, price, alcoholContent, pintQuantity, id } = testTap;
     action = {
-      type: ADD_KEG,
+      type: 'ADD_KEG',
       name: name,
       brand: brand,
       price: price,
@@ -38,7 +38,7 @@ describe('tapListReducer', () => {
       pintQuantity: pintQuantity,
       id: id  
     };
-    expect(tapListReducer(tapListReducer({}, {type: action}))).toEqual({
+    expect(tapListReducer(tapListReducer({}, action))).toEqual({
       [id]: {
         name: "Lorem Ipsum Lager",
         brand: "Drinkem Upsum Brewing",
