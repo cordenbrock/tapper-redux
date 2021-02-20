@@ -13,7 +13,9 @@ export default (state = {}, action) => {
       }
     });
   case 'DELETE_TAP':
-    return {};
+    let newState = {...state};
+    delete newState.masterTapList[id];
+    return newState;
   default:
     return state;
   }
