@@ -59,7 +59,10 @@ describe('tapListReducer', () => {
       type: 'DELETE_TAP',
       id: 1
     }
-    expect(tapListReducer(state, action)).toEqual(state.masterTapList);
+    expect(tapListReducer(state, action)).toEqual({
+      masterTapList: { [2]: testTap2 }
+    }
+    );
   });
 })
 
