@@ -12,6 +12,8 @@ export default (state = {}, action) => {
         id
       }
     });
+  case 'DELETE_TAP':
+    return {};
   default:
     return state;
   }
