@@ -9,7 +9,7 @@ describe('tapListReducer', () => {
     price: "5.50",
     alcoholContent: "7.7",
     pintQuantity: "11",
-    id: '456'
+    id: 1
   }
   const testTap2 = {
     name: "Fizzbuzz Farmhouse Ale",
@@ -17,7 +17,7 @@ describe('tapListReducer', () => {
     price: "5.50",
     alcoholContent: "6.2",
     pintQuantity: "124",
-    id: 1
+    id: 2
 }
   const state = {
     masterTapList: {[1]: testTap1, 
@@ -42,13 +42,15 @@ describe('tapListReducer', () => {
       id: id  
     };
     expect(tapListReducer({}, action)).toEqual({
-      [id]: {
-        name: "Lorem Ipsum Lager",
-        brand: "Drinkem Upsum Brewing",
-        price: "5.50",
-        alcoholContent: "7.7",
-        pintQuantity: "11",
-        id: '456'
+      "masterTapList": {
+        [id]: {
+          name: "Lorem Ipsum Lager",
+          brand: "Drinkem Upsum Brewing",
+          price: "5.50",
+          alcoholContent: "7.7",
+          pintQuantity: "11",
+          id: 1
+        }
       }
     });
   });
@@ -60,9 +62,10 @@ describe('tapListReducer', () => {
       id: 1
     }
     expect(tapListReducer(state, action)).toEqual({
-      masterTapList: { [2]: testTap2 }
-    }
-    );
+      "masterTapList": {
+        [2]: testTap2
+      }
+    });
   });
 })
 
