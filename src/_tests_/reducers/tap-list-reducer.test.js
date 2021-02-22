@@ -19,10 +19,9 @@ describe('tapListReducer', () => {
     pintQuantity: "124",
     id: 2
 }
-  const state = {
-    masterTapList: {[1]: testTap1, 
-                    [2]: testTap2
-    }
+  const masterTapListStateSlice = {
+      [1]: testTap1, 
+      [2]: testTap2
   }
 
   test('Should return default state when action type is null', () => {
@@ -42,7 +41,6 @@ describe('tapListReducer', () => {
       id: id  
     };
     expect(tapListReducer({}, action)).toEqual({
-      "masterTapList": {
         [id]: {
           name: "Lorem Ipsum Lager",
           brand: "Drinkem Upsum Brewing",
@@ -51,7 +49,6 @@ describe('tapListReducer', () => {
           pintQuantity: "11",
           id: 1
         }
-      }
     });
   });
 
@@ -61,10 +58,8 @@ describe('tapListReducer', () => {
       type: 'DELETE_TAP',
       id: 1
     }
-    expect(tapListReducer(state, action)).toEqual({
-      "masterTapList": {
+    expect(tapListReducer(masterTapListStateSlice, action)).toEqual({
         [2]: testTap2
-      }
     });
   });
 })

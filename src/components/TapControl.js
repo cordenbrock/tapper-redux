@@ -11,7 +11,6 @@ class TapControl extends React.Component {
   constructor(props) {
   super(props)
   this.state = {
-      formVisibleOnPage: false,
       selectedKeg: null,
       editing: false
     }
@@ -21,13 +20,14 @@ class TapControl extends React.Component {
     if (this.state.selectedKeg != null) {
       this.setState({
         selectedKeg: null,
-        formVisibleOnPage: false,
         editing: false
       });
     } else {
-      this.setState(prevState => ({
-        formVisibleOnPage: !prevState.formVisibleOnPage
-      }));
+      const { dispatch } = this.props;
+      const action = {
+        type: 'TOGGLE_FORM'
+      }
+      dispatch(action);
     }
   }
 
@@ -44,7 +44,10 @@ class TapControl extends React.Component {
       id: id
     }
     dispatch(action);
-    this.setState({ formVisibleOnPage: false });
+    const action2 = {
+      type: 'TOGGLE_FORM'
+    }
+    dispatch(action2);
   }
 
   handleSelectedKeg = (selectedKegId) => {
@@ -125,7 +128,7 @@ class TapControl extends React.Component {
     } else if (this.state.selectedKeg != null) {
       currentlyVisibleState = <KegDetails keg={this.state.selectedKeg} onDeleteKeg={this.handleDeleteKeg} onEditKeg={this.handleEditKeg} onRestockKeg={this.handleRestock}/>
       buttonText = "Return to Keg List"
-    } else if (this.state.formVisibleOnPage) {
+    } else if (this.props.formVisibleOnPage) {
       currentlyVisibleState = <AddKeg onNewKeg={this.handleAddKeg} />
       buttonText = "View Keg List";
     } else {
@@ -146,13 +149,15 @@ class TapControl extends React.Component {
 }
 
 TapControl.propTypes = {
-  masterTapList: PropTypes.object
+  masterTapList: PropTypes.object,
+  formVisibleOnPage: PropTypes.bool
 };
 
 
 const mapStateToProps = state => {
   return {
-    masterTapList: state.masterTapList
+    masterTapList: state.masterTapList,
+    formVisibleOnPage: state.formVisibleOnPage
   }
 }
 

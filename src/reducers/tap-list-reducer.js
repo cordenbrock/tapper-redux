@@ -16,16 +16,16 @@ export default (state = {}, action) => {
         id
       }
     };
-    newMasterTapList = {...state.masterTapList, ...newTap}
+    newMasterTapList = {...newTap}
     return {
       ...state,
-      masterTapList: newMasterTapList
+      ...newMasterTapList
     };
   case 'DELETE_TAP':
-    const { [id]: remove, ...rest} = state.masterTapList;
+    const { [id]: remove, ...rest} = state;
     return {
-      ...state,
-      masterTapList: rest
+      // ...state,
+      ...rest
     };
   default:
     return state;

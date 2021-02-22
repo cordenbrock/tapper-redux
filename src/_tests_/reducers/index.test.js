@@ -1,4 +1,4 @@
-import rootReducer from '../../reducers/root-reducer';
+import rootReducer from '../../reducers/index';
 import { createStore } from 'redux';
 import formVisibleReducer from '../../reducers/form-visible-reducer';
 import tapListReducer from '../../reducers/tap-list-reducer';
