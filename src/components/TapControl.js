@@ -1,15 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import AddKeg from './AddKeg';
 import KegDetails from './KegDetails';
-import KegList from './KegList';
+import TapList from './TapList';
 import EditKeg from './EditKeg';
-import { kegStock } from './../defaults/defaultStock';
+import PropTypes from "prop-types";
+
 
 class TapControl extends React.Component {
   constructor(props) {
   super(props)
   this.state = {
-      masterTapList: [...kegStock],
       formVisibleOnPage: false,
       selectedKeg: null,
       editing: false
@@ -30,24 +31,37 @@ class TapControl extends React.Component {
     }
   }
 
-  handleAddKeg = (newKeg) => {
-    this.setState({
-      masterTapList: [...this.state.masterTapList, newKeg],
-      formVisibleOnPage: false
-    });
+  handleAddKeg = (newTap) => {
+    const { dispatch } = this.props;
+    const { name, brand, price, alcoholContent, pintQuantity, id } = newTap;
+    const action = {
+      type: 'ADD_TAP',
+      name: name,
+      brand: brand,
+      alcoholContent: alcoholContent,
+      pintQuantity: pintQuantity,
+      price: price,
+      id: id
+    }
+    dispatch(action);
+    this.setState({ formVisibleOnPage: false });
   }
 
   handleSelectedKeg = (selectedKegId) => {
-    const selectedKegDetails = this.state.masterTapList.filter(keg => keg.id === selectedKegId)[0]
+    const selectedKegDetails = this.props.masterTapList[selectedKegId];
     this.setState({
       selectedKeg: selectedKegDetails
     });
   }
 
   handleDeleteKeg = (selectedKegId) => {
-    const newMasterTapList = this.state.masterTapList.filter(keg => keg.id !== selectedKegId)
+    const { dispatch } = this.props;
+    const action = {
+      type: 'DELETE_TAP',
+      id: selectedKegId
+    }
+    dispatch(action);
     this.setState({
-      masterTapList: [...newMasterTapList],
       selectedKeg: null
     });
   }
@@ -56,40 +70,48 @@ class TapControl extends React.Component {
     this.setState({editing: true});
   }
 
-  handleEditKegFormSubmission = (kegToEdit) => {
-    const editedMasterTapList = this.state.masterTapList
-      .filter(keg => keg.id !== this.state.selectedKeg.id)
-      .concat(kegToEdit);
+  handleEditKegFormSubmission = (tapToEdit) => {
+    const { dispatch } = this.props;
+    const { name, brand, price, alcoholContent, pintQuantity, id } = tapToEdit;
+    const action = {
+      type: 'ADD_TAP',
+      name: name,
+      brand: brand,
+      alcoholContent: alcoholContent,
+      pintQuantity: pintQuantity,
+      price: price,
+      id: id
+    }
+    dispatch(action);
     this.setState({
-      masterTapList: editedMasterTapList,
       editing: false,
       selectedKeg: null
     });
   }
 
   handlePintPour = (selectedKegId) => {
-    const newMasterTapList = this.state.masterTapList.map(keg => {
+    const newMasterTapList = this.props.masterTapList.map(keg => {
       if (keg.id === selectedKegId && keg.pintQuantity > 0) {
         keg.pintQuantity--;
       }
       keg.pintQuantity = keg.pintQuantity.toString();
       return keg;
     })
-    this.setState({
-      masterTapList: [...newMasterTapList]
-    })
+    // this.setState({
+    //   masterTapList: [...newMasterTapList]
+    // })
   }
 
   handleRestock = (selectedKegId) => {
-    const newMasterTapList = this.state.masterTapList.map(keg => {
+    const newMasterTapList = this.props.masterTapList.map(keg => {
       if (keg.id === selectedKegId) {
         keg.pintQuantity = "124";
       }
       return keg;
     })
-    this.setState({
-      masterTapList: [...newMasterTapList]
-    })
+    // this.setState({
+    //   masterTapList: [...newMasterTapList]
+    // })
   }
 
 
@@ -107,7 +129,7 @@ class TapControl extends React.Component {
       currentlyVisibleState = <AddKeg onNewKeg={this.handleAddKeg} />
       buttonText = "View Keg List";
     } else {
-      currentlyVisibleState = <KegList kegList={this.state.masterTapList} onKegSelection={this.handleSelectedKeg} onPintPour={this.handlePintPour} />
+      currentlyVisibleState = <TapList tapList={this.props.masterTapList} onKegSelection={this.handleSelectedKeg} onPintPour={this.handlePintPour} />
       buttonText = "Add Keg";
     }
 
@@ -122,5 +144,18 @@ class TapControl extends React.Component {
     );
   }
 }
+
+TapControl.propTypes = {
+  masterTapList: PropTypes.object
+};
+
+
+const mapStateToProps = state => {
+  return {
+    masterTapList: state
+  }
+}
+
+TapControl = connect(mapStateToProps)(TapControl);
 
 export default TapControl;
