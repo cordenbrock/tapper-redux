@@ -1,4 +1,7 @@
-export default (state = {}, action) => {
+import { defaultTaps } from './../defaultTaps/defaultTaps'
+
+
+export default (state = defaultTaps, action) => {
   const {  name, brand, price, alcoholContent, pintQuantity, id } = action;
   switch (action.type) {
   case 'ADD_TAP':
@@ -14,7 +17,7 @@ export default (state = {}, action) => {
     });
   case 'DELETE_TAP':
     let newState = {...state};
-    delete newState.masterTapList[id];
+    delete newState[id];
     return newState;
   default:
     return state;
