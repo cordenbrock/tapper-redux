@@ -152,7 +152,7 @@ TapControl.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    masterTapList: state
+    masterTapList: state.masterTapList
   }
 }
 
