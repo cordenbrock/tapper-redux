@@ -25,3 +25,16 @@ export const toggleForm = () => {
     type: c.TOGGLE_FORM
   }
 }
+
+export const selectTap = (selectedTap) => {
+  return {
+    type: c.SELECT_TAP,
+    selectedTap
+  }
+}
+
+export const deselectTap = () => {
+  return {
+    type: c.DESELECT_TAP
+  }
+}

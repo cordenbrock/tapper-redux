@@ -9,7 +9,8 @@ import { defaultTaps } from './defaultTaps/defaultTaps'
 
 const initialState = {
   masterTapList: {...defaultTaps},
-  formVisibleOnPage: false
+  formVisibleOnPage: false,
+  selectedTap: null
 }
 const store = createStore(rootReducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
