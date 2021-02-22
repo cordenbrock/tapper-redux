@@ -1,11 +1,12 @@
 import { defaultTaps } from './../defaultTaps/defaultTaps'
 
 
-export default (state = defaultTaps, action) => {
+export default (state = {}, action) => {
+  let newMasterTapList;
   const {  name, brand, price, alcoholContent, pintQuantity, id } = action;
   switch (action.type) {
   case 'ADD_TAP':
-    return Object.assign({}, state, {
+    const newTap = {
       [id]: {
         name,
         brand,
@@ -14,11 +15,18 @@ export default (state = defaultTaps, action) => {
         pintQuantity,
         id
       }
-    });
+    };
+    newMasterTapList = {...state.masterTapList, ...newTap}
+    return {
+      ...state,
+      masterTapList: newMasterTapList
+    };
   case 'DELETE_TAP':
-    let newState = {...state};
-    delete newState[id];
-    return newState;
+    const { [id]: remove, ...rest} = state.masterTapList;
+    return {
+      ...state,
+      masterTapList: rest
+    };
   default:
     return state;
   }
