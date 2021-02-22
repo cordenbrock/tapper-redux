@@ -5,6 +5,7 @@ import KegDetails from './KegDetails';
 import TapList from './TapList';
 import EditKeg from './EditKeg';
 import PropTypes from "prop-types";
+import * as a from './../actions';
 
 
 class TapControl extends React.Component {
@@ -24,29 +25,16 @@ class TapControl extends React.Component {
       });
     } else {
       const { dispatch } = this.props;
-      const action = {
-        type: 'TOGGLE_FORM'
-      }
+      const action = a.toggleForm();
       dispatch(action);
     }
   }
 
   handleAddKeg = (newTap) => {
     const { dispatch } = this.props;
-    const { name, brand, price, alcoholContent, pintQuantity, id } = newTap;
-    const action = {
-      type: 'ADD_TAP',
-      name: name,
-      brand: brand,
-      alcoholContent: alcoholContent,
-      pintQuantity: pintQuantity,
-      price: price,
-      id: id
-    }
+    const action = a.addTap(newTap);
     dispatch(action);
-    const action2 = {
-      type: 'TOGGLE_FORM'
-    }
+    const action2 = a.toggleForm();
     dispatch(action2);
   }
 
@@ -59,10 +47,7 @@ class TapControl extends React.Component {
 
   handleDeleteKeg = (selectedKegId) => {
     const { dispatch } = this.props;
-    const action = {
-      type: 'DELETE_TAP',
-      id: selectedKegId
-    }
+    const action = a.deleteTap(selectedKegId);
     dispatch(action);
     this.setState({
       selectedKeg: null
@@ -76,15 +61,7 @@ class TapControl extends React.Component {
   handleEditKegFormSubmission = (tapToEdit) => {
     const { dispatch } = this.props;
     const { name, brand, price, alcoholContent, pintQuantity, id } = tapToEdit;
-    const action = {
-      type: 'ADD_TAP',
-      name: name,
-      brand: brand,
-      alcoholContent: alcoholContent,
-      pintQuantity: pintQuantity,
-      price: price,
-      id: id
-    }
+    const action = a.addTap(tapToEdit);
     dispatch(action);
     this.setState({
       editing: false,
