@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 import formVisibleReducer from '../../reducers/form-visible-reducer';
 import tapListReducer from '../../reducers/tap-list-reducer';
 import selectedTapReducer from '../../reducers/selected-tap-reducer';
+import toggleEditingReducer from '../../reducers/toggle-editing-reducer';
 
 let store = createStore(rootReducer);
 
@@ -12,7 +13,8 @@ test('Should return default state if no action type is recognized', () => {
     expect(rootReducer({}, { type: null })).toEqual({
       masterTapList: {},
       formVisibleOnPage: false,
-      selectedTap: null
+      selectedTap: null,
+      isEditing: false
     });
   });
 
@@ -26,5 +28,9 @@ test('Check that initial state of formVisibleReducer matches root reducer', () =
 
 test('Check that initial state of selectedTapReducer matches root reducer', () => {
     expect(store.getState().selectedTap).toEqual(selectedTapReducer(null, { type: null }));
+  });
+
+test('Check that initial state of toggleEditingReducer matches root reducer', () => {
+    expect(store.getState().isEditing).toEqual(toggleEditingReducer(undefined, { type: null }));
   });
 });

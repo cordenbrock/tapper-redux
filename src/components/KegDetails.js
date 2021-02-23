@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 
 function KegDetails(props){
-  const { keg, onDeleteKeg, onEditKeg, onRestockKeg } = props;
-
+  const { keg, onDeleteKeg, onEditKeg, onRestockKeg, masterTapList } = props;
+  const kegId = keg.id;
   return (
     <>
       <div className="container fluid">
@@ -15,7 +16,7 @@ function KegDetails(props){
           <hr/>
           <p>Brewery || {keg.brand}</p>
           <p>Price -- ABV || ${keg.price} -- {keg.alcoholContent}%</p>
-          <p>Remaining Pint Count || {keg.pintQuantity}</p>
+          <p>Remaining Pint Count || {masterTapList[kegId].pintQuantity}</p>
         </div>
         <br/>
         <button className="btn btn-dark m-1" onClick={()=> onRestockKeg(keg.id)}>Restock</button>
@@ -31,5 +32,14 @@ KegDetails.propTypes = {
   onClickingDelete: PropTypes.func,
   onClickingEdit: PropTypes.func
 }
+
+const mapStateToProps = state => {
+  return {
+    masterTapList: state.masterTapList
+  }
+}
+
+KegDetails = connect(mapStateToProps)(KegDetails);
+
 
 export default KegDetails;

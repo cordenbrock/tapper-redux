@@ -38,3 +38,35 @@ export const deselectTap = () => {
     type: c.DESELECT_TAP
   }
 }
+
+export const pourAPint = (newTap) => {
+  const { name, brand, price, alcoholContent, pintQuantity, id } = newTap;
+  return {
+    type: c.POUR_PINT,
+    name,
+    brand,
+    alcoholContent,
+    pintQuantity: (pintQuantity-1).toString(),
+    price,
+    id
+  }
+}
+
+export const restockTap = (newTap) => {
+  const { name, brand, price, alcoholContent, pintQuantity, id } = newTap;
+  return {
+    type: c.RESTOCK_TAP,
+    name,
+    brand,
+    alcoholContent,
+    pintQuantity: "124",
+    price,
+    id
+  }
+}
+
+export const toggleEditing = () => {
+  return {
+    type: c.TOGGLE_EDITING
+  }
+}

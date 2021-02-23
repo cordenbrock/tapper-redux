@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import AddKeg from './AddKeg';
 import KegDetails from './KegDetails';
 import TapList from './TapList';
@@ -11,18 +11,15 @@ import * as a from './../actions';
 class TapControl extends React.Component {
   constructor(props) {
   super(props)
-  this.state = {
-      editing: false
-    }
   }
 
   handleVisiblePage = () => {
     const { dispatch } = this.props;
     if (this.props.selectedTap != null) {
-      this.setState({
-        editing: false
-      });
     dispatch(a.deselectTap());
+      if (this.props.isEditing) {
+      dispatch(a.toggleEditing());
+      }
     } else {
       dispatch(a.toggleForm());
     }
@@ -48,41 +45,29 @@ class TapControl extends React.Component {
   }
 
   handleEditKeg = () => {
-    this.setState({editing: true});
+    const { dispatch } = this.props;
+    dispatch(a.toggleEditing());
   }
 
   handleEditKegFormSubmission = (tapToEdit) => {
     const { dispatch } = this.props;
     dispatch(a.addTap(tapToEdit));
-    this.setState({
-      editing: false,
-    });
+    dispatch(a.toggleEditing());
     dispatch(a.deselectTap());
   }
 
   handlePintPour = (selectedTapId) => {
-    const newMasterTapList = this.props.masterTapList.map(keg => {
-      if (keg.id === selectedTapId && keg.pintQuantity > 0) {
-        keg.pintQuantity--;
-      }
-      keg.pintQuantity = keg.pintQuantity.toString();
-      return keg;
-    })
-    // this.setState({
-    //   masterTapList: [...newMasterTapList]
-    // })
+    const selectedTap = this.props.masterTapList[selectedTapId];
+    const { dispatch } = this.props;
+    if (selectedTap.pintQuantity > 0) {
+      dispatch(a.pourAPint(selectedTap));
+    }
   }
 
   handleRestock = (selectedTapId) => {
-    const newMasterTapList = this.props.masterTapList.map(keg => {
-      if (keg.id === selectedTapId) {
-        keg.pintQuantity = "124";
-      }
-      return keg;
-    })
-    // this.setState({
-    //   masterTapList: [...newMasterTapList]
-    // })
+    const selectedTap = this.props.masterTapList[selectedTapId];
+    const { dispatch } = this.props;
+    dispatch(a.restockTap(selectedTap));
   }
 
 
@@ -90,17 +75,17 @@ class TapControl extends React.Component {
     let currentlyVisibleState = null;
     let buttonText = null;
 
-    if (this.state.editing) {
-      currentlyVisibleState = <EditKeg keg={this.props.selectedTap} onEditKegFormSubmission={this.handleEditKegFormSubmission}/>
-      buttonText = "Return to Keg List"
+    if (this.props.isEditing) {
+      currentlyVisibleState = <EditKeg keg={this.props.selectedTap} onEditKegFormSubmission={this.handleEditKegFormSubmission}/>;
+      buttonText = "Return to Keg List";
     } else if (this.props.selectedTap != null) {
-      currentlyVisibleState = <KegDetails keg={this.props.selectedTap} onDeleteKeg={this.handleDeleteKeg} onEditKeg={this.handleEditKeg} onRestockKeg={this.handleRestock}/>
-      buttonText = "Return to Keg List"
+      currentlyVisibleState = <KegDetails keg={this.props.selectedTap} onDeleteKeg={this.handleDeleteKeg} onEditKeg={this.handleEditKeg} onRestockKeg={this.handleRestock}/>;
+      buttonText = "Return to Keg List";
     } else if (this.props.formVisibleOnPage) {
-      currentlyVisibleState = <AddKeg onNewKeg={this.handleAddKeg} />
+      currentlyVisibleState = <AddKeg onNewKeg={this.handleAddKeg} />;
       buttonText = "View Keg List";
     } else {
-      currentlyVisibleState = <TapList tapList={this.props.masterTapList} onKegSelection={this.handleSelectedTap} onPintPour={this.handlePintPour} />
+      currentlyVisibleState = <TapList tapList={this.props.masterTapList} onKegSelection={this.handleSelectedTap} onPintPour={this.handlePintPour} />;
       buttonText = "Add Keg";
     }
 
@@ -120,6 +105,7 @@ TapControl.propTypes = {
   masterTapList: PropTypes.object,
   formVisibleOnPage: PropTypes.bool,
   selectedTap: PropTypes.object,
+  isEditing: PropTypes.bool
 };
 
 
@@ -127,7 +113,8 @@ const mapStateToProps = state => {
   return {
     masterTapList: state.masterTapList,
     formVisibleOnPage: state.formVisibleOnPage,
-    selectedTap: state.selectedTap
+    selectedTap: state.selectedTap,
+    isEditing: state.isEditing
   }
 }
 
