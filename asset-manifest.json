@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/tapper/static/css/main.af9bdfab.css",
+    "main.js": "/tapper/static/js/main.f21f38f1.js",
+    "static/media/tapper.jpg": "/tapper/static/media/tapper.cdc043e9b7be9e9a41c2.jpg",
+    "index.html": "/tapper/index.html",
+    "main.af9bdfab.css.map": "/tapper/static/css/main.af9bdfab.css.map",
+    "main.f21f38f1.js.map": "/tapper/static/js/main.f21f38f1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.af9bdfab.css",
+    "static/js/main.f21f38f1.js"
+  ]
+}
