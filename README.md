@@ -5,7 +5,7 @@
 
 ## Deployment
 
-* [Check it out!](https://cordenbrock.github.io/tapper/)
+* [Check it out!](https://cordenbrock.github.io/tapper-redux/)
 
 ## _What_ does it do?
 
